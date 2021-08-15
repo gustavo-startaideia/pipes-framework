@@ -1,6 +1,6 @@
 <?php
 
-namespace Pipes\Pipes;
+namespace Pipes;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +13,6 @@ class PipesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -23,6 +22,5 @@ class PipesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "pipes/pipes",
-    "description": "A description for pipes.",
+    "description": "A laravel project to manage content",
     "type": "package",
     "license": "MIT",
     "keywords": [
@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Pipes\\Pipes\\": "./src"
+            "Pipes\\": "./src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Pipes\\Pipes\\Tests\\": "tests"
+            "Pipes\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -31,7 +31,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Pipes\\Pipes\\PipesServiceProvider"
+                "Pipes\\PipesServiceProvider"
             ]
         }
     },
