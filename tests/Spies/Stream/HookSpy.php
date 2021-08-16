@@ -17,6 +17,6 @@ class HookSpy extends Hook
      */
     public function handle(mixed $payload): mixed
     {
-        $this->addCall('handle', [$payload]);
+        return $this->addCall('handle', [$payload]);
     }
 }

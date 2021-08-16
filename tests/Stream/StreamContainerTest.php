@@ -2,8 +2,11 @@
 
 namespace Pipes\Tests\Stream;
 
+use Pipes\Stream\Action;
 use Pipes\Tests\Spies\Stream\HookSpy;
 use Pipes\Stream\StreamContainer;
+use Pipes\Tests\Spies\Stream\ActionSpy;
+use Pipes\Tests\Spies\Stream\InvalidHookSpy;
 
 class StreamContainerTest extends \Pipes\Tests\TestCase
 {
@@ -37,25 +40,30 @@ class StreamContainerTest extends \Pipes\Tests\TestCase
         HookSpy::$before[] = '<valid_action_name>';
         HookSpy::$after[]  = '<valid_action_name>';
 
-        $this->sut->pushHook(HookSpy::class);
+        $hookSpy = new HookSpy;
 
-        $this->assertTrue($this->sut->hasHook(HookSpy::class));
+        $this->sut->pushHook($hookSpy);
 
-        $this->assertFalse($this->sut->hasHook('<invalid_hook_name>'));
+        $this->assertTrue($this->sut->hasHook($hookSpy));
+
+        $this->assertFalse($this->sut->hasHook(new InvalidHookSpy));
     }
 
     /** @test */
     public function it_should_retrive_all_hooks_of_a_action()
     {
-        HookSpy::$before[] = '<valid_action_name>';
-        HookSpy::$after[]  = '<valid_action_name>';
+        HookSpy::$before[] = ActionSpy::class;
+        HookSpy::$after[]  = ActionSpy::class;
 
-        $this->sut->pushHook(HookSpy::class);
+        $actionSpy = new ActionSpy;
+        $hookSpy = new HookSpy;
 
-        $retrivedHooks = $this->sut->getHooks('<valid_action_name>');
+        $this->sut->pushHook($hookSpy);
+
+        $retrivedHooks = $this->sut->getHooks($actionSpy);
 
         $hookCount = collect($retrivedHooks)->filter(
-            fn ($hook) => $hook === HookSpy::class
+            fn ($hook) => $hook->getName() === $hookSpy->getName()
         )->count();
 
         $this->assertEquals(2, $hookCount);
@@ -64,15 +72,18 @@ class StreamContainerTest extends \Pipes\Tests\TestCase
     /** @test */
     public function it_should_retrive_only_before_hooks()
     {
-        HookSpy::$before[] = '<valid_action_name>';
-        HookSpy::$after[]  = '<valid_action_name>';
+        HookSpy::$before[] = ActionSpy::class;
+        HookSpy::$after[]  = ActionSpy::class;
 
-        $this->sut->pushHook(HookSpy::class);
+        $actionSpy = new ActionSpy;
+        $hookSpy = new HookSpy;
 
-        $retrivedHooks = $this->sut->getBeforeHooks('<valid_action_name>');
+        $this->sut->pushHook($hookSpy);
+
+        $retrivedHooks = $this->sut->getBeforeHooks($actionSpy);
 
         $hookCount = collect($retrivedHooks)->filter(
-            fn ($hook) => $hook === HookSpy::class
+            fn ($hook) => $hook->getName() === $hookSpy->getName()
         )->count();
 
         $this->assertEquals(1, $hookCount);
@@ -81,15 +92,18 @@ class StreamContainerTest extends \Pipes\Tests\TestCase
     /** @test */
     public function it_should_retrive_only_after_hooks()
     {
-        HookSpy::$before[] = '<valid_action_name>';
-        HookSpy::$after[]  = '<valid_action_name>';
+        HookSpy::$before[] = ActionSpy::class;
+        HookSpy::$after[]  = ActionSpy::class;
 
-        $this->sut->pushHook(HookSpy::class);
+        $actionSpy = new ActionSpy;
+        $hookSpy = new HookSpy;
 
-        $retrivedHooks = $this->sut->getAfterHooks('<valid_action_name>');
+        $this->sut->pushHook($hookSpy);
+
+        $retrivedHooks = $this->sut->getAfterHooks($actionSpy);
 
         $hookCount = collect($retrivedHooks)->filter(
-            fn ($hook) => $hook === HookSpy::class
+            fn ($hook) => $hook->getName() === $hookSpy->getName()
         )->count();
 
         $this->assertEquals(1, $hookCount);

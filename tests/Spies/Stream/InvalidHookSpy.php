@@ -3,9 +3,9 @@
 namespace Pipes\Tests\Spies\Stream;
 
 use Pipes\Tests\Spies\Spy;
-use Pipes\Stream\Action;
+use Pipes\Stream\Hook;
 
-class ActionSpy extends Action
+class InvalidHookSpy extends Hook
 {
     use Spy;
 
@@ -18,7 +18,5 @@ class ActionSpy extends Action
     public function handle(mixed $payload): mixed
     {
         $this->addCall('handle', [$payload]);
-
-        return $payload;
     }
 }

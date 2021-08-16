@@ -23,9 +23,10 @@ class StreamContainer implements StreamContainerContract
     /**
      * Push a hook into the stream container
      * 
-     * @param callable $hook
+     * @param Hook $hook
+     * @return void
      */
-    public function pushHook(string $hook): void
+    public function pushHook(Hook $hook): void
     {
         // register before actions
         collect($hook::$before)->each(function ($action) use ($hook) {
@@ -49,46 +50,46 @@ class StreamContainer implements StreamContainerContract
     /**
      * Get only before hooks
      * 
-     * @param string $action
+     * @param Action $action
      * @return array
      */
-    public function getBeforeHooks(string $action): array
+    public function getBeforeHooks(Action $action): array
     {
-        return optional($this->beforeHooks)[$action] ?? [];
+        return optional($this->beforeHooks)[$action->getName()] ?? [];
     }
 
     /**
      * Get only after hooks
      * 
-     * @param string $action
+     * @param Action $action
      * @return array
      */
-    public function getAfterHooks(string $action): array
+    public function getAfterHooks(Action $action): array
     {
-        return optional($this->afterHooks)[$action] ?? [];
+        return optional($this->afterHooks)[$action->getName()] ?? [];
     }
 
     /**
      * Get all hooks of a action
      * 
-     * @param string $action
+     * @param Action $action
      * @return array
      */
-    public function getHooks(string $action): array
+    public function getHooks(Action $action): array
     {
         return [
-            ...optional($this->beforeHooks)[$action] ?? [],
-            ...optional($this->afterHooks)[$action] ?? []
+            ...optional($this->beforeHooks)[$action->getName()] ?? [],
+            ...optional($this->afterHooks)[$action->getName()] ?? []
         ];
     }
 
     /**
      * Check if a given hook is loaded
      * 
-     * @param string $hook
+     * @param Hook $hook
      * @return bool
      */
-    public function hasHook(string $hook): bool
+    public function hasHook(Hook $hook): bool
     {
         return collect(
             array_merge(
@@ -96,8 +97,8 @@ class StreamContainer implements StreamContainerContract
                 $this->afterHooks
             )
         )
-            ->map(fn ($element) => collect($element))
-            ->filter(fn ($element) => $element->contains($hook))
+            ->map(fn ($element) => collect($element)->map(fn ($hook) => $hook->getName()))
+            ->filter(fn ($element) => $element->contains($hook->getName()))
             ->count() > 0;
     }
 }

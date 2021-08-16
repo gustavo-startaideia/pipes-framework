@@ -4,6 +4,8 @@ namespace Pipes\Tests\Spies\Stream;
 
 use Pipes\Stream\Contracts\StreamContainerContract;
 use Pipes\Tests\Spies\Spy;
+use Pipes\Stream\Action;
+use Pipes\Stream\Hook;
 
 class StreamContainerSpy implements StreamContainerContract
 {
@@ -12,10 +14,10 @@ class StreamContainerSpy implements StreamContainerContract
     /**
      * Push hook method mock
      * 
-     * @param string $hook
+     * @param Hook $hook
      * @return void
      */
-    public function pushHook(string $hook): void
+    public function pushHook(Hook $hook): void
     {
         $this->addCall('pushHook', [$hook]);
     }
@@ -23,51 +25,44 @@ class StreamContainerSpy implements StreamContainerContract
     /**
      * getBeforeHooks method mock
      * 
-     * @param string $action
+     * @param Action $action
      * @return void
      */
-    public function getBeforeHooks(string $action): array
+    public function getBeforeHooks(Action $action): array
     {
-        $this->addCall('pushHook', [$action]);
-
-        return [];
+        return $this->addCall('getBeforeHooks', [$action]);
     }
 
     /**
      * getAfterHooks method mock
      * 
-     * @param string $action
+     * @param Action $action
      * @return void
      */
-    public function getAfterHooks(string $action): array
+    public function getAfterHooks(Action $action): array
     {
-        $this->addCall('getAfterHooks', [$action]);
-
-        return [];
+        return $this->addCall('getAfterHooks', [$action]);
     }
 
     /**
      * getHooks method mock
      * 
-     * @param string $action
+     * @param Action $action
      * @return void
      */
-    public function getHooks(string $action): array
+    public function getHooks(Action $action): array
     {
-        $this->addCall('getBeforeHooks', [$action]);
-
-        return [];
+        return $this->addCall('getBeforeHooks', [$action]);
     }
 
     /**
      * Check if a given hook is registered
      * 
-     * @param string $hook
+     * @param Hook $hook
      * @return bool
      */
-    public function hasHook(string $hook): bool
+    public function hasHook(Hook $hook): bool
     {
-        $this->addCall('isHookLoaded', [$hook]);
-        return true;
+        return $this->addCall('isHookLoaded', [$hook]);
     }
 }

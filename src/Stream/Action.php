@@ -5,6 +5,13 @@ namespace Pipes\Stream;
 abstract class Action
 {
     /**
+     * Action payload
+     * 
+     * @var array
+     */
+    public mixed $payload = [];
+
+    /**
      * Handle action dispatching
      *
      * @param mixed $payload
@@ -13,12 +20,35 @@ abstract class Action
     abstract public function handle(mixed $payload): mixed;
 
     /**
-     * Dispatch this action to all available hooks
+     * Gets action payload
      * 
-     * @param mixed $payload
      * @return mixed
      */
-    static function dispatch(mixed $payload): mixed
+    public function getPayload(): mixed
     {
+        return $this->payload;
+    }
+
+    /**
+     * Get action name
+     * 
+     * @return string
+     */
+    public function getName(): string
+    {
+        return get_class($this);
+    }
+
+    /**
+     * Set action payload
+     * 
+     * @param mixed $payload
+     * @return Action
+     */
+    public function setPayload(mixed $payload): Action
+    {
+        $this->payload = $payload;
+
+        return $this;
     }
 }

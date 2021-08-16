@@ -19,6 +19,16 @@ abstract class Hook
     static $after = [];
 
     /**
+     * Get hook name
+     * 
+     * @return string
+     */
+    public function getName(): string
+    {
+        return get_class($this);
+    }
+
+    /**
      * Indicates if the hook should run
      * 
      * @return bool
