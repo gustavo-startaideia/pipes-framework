@@ -2,7 +2,7 @@
 
 namespace Pipes\Stream;
 
-use Pipes\Stream\Contracts\HookRegisterContract;
+use Pipes\Stream\Contracts\StreamContainerContract;
 
 class Dispatcher
 {
@@ -12,7 +12,7 @@ class Dispatcher
      * @param \Pipes\Stream\Contracts\HookRegister $hookRegister
      */
     public function __construct(
-        public HookRegisterContract $hookRegister
+        public StreamContainerContract $streamContainer
     ) {
     }
 
@@ -23,6 +23,10 @@ class Dispatcher
      */
     public function pushHook(string $hook)
     {
-        $this->hookRegister->pushHook($hook);
+        $this->streamContainer->pushHook($hook);
+    }
+
+    public function dispatchAction(Action $action): mixed
+    {
     }
 }

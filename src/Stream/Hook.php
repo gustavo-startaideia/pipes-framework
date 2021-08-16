@@ -9,19 +9,23 @@ abstract class Hook
      * 
      * @return array
      */
-    public function before(): array
-    {
-        return [];
-    }
+    static $before = [];
 
     /**
      * Indicates actions that run after this hook
      * 
      * @return array
      */
-    public function after(): array
+    static $after = [];
+
+    /**
+     * Indicates if the hook should run
+     * 
+     * @return bool
+     */
+    public function shouldExecute(): bool
     {
-        return [];
+        return true;
     }
 
     /**

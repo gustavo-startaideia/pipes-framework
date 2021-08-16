@@ -2,7 +2,7 @@
 
 namespace Pipes\Tests\Stream;
 
-use Pipes\Tests\Spies\Stream\HookRegisterSpy;
+use Pipes\Tests\Spies\Stream\StreamContainerSpy;
 use Pipes\Tests\Spies\Stream\HookSpy;
 use Pipes\Stream\Dispatcher;
 
@@ -18,9 +18,9 @@ class DispatcherTest extends \Pipes\Tests\TestCase
     /**
      * Hook Register Spy
      *
-     * @var HookRegisterSpy
+     * @var StreamContainerSpy
      */
-    protected mixed $hookRegisterSpy;
+    protected mixed $streamContainerSpy;
 
     /**
      * Create sut and mocks
@@ -31,10 +31,10 @@ class DispatcherTest extends \Pipes\Tests\TestCase
     {
         parent::setUp();
 
-        $this->hookRegisterSpy = new HookRegisterSpy;
+        $this->streamContainerSpy = new StreamContainerSpy;
 
         $this->sut = new Dispatcher(
-            hookRegister: $this->hookRegisterSpy
+            streamContainer: $this->streamContainerSpy
         );
     }
 
@@ -43,10 +43,10 @@ class DispatcherTest extends \Pipes\Tests\TestCase
     {
         $this->sut->pushHook(HookSpy::class);
 
-        $this->assertEquals(1, $this->hookRegisterSpy->getCallsCount('pushHook'));
+        $this->assertEquals(1, $this->streamContainerSpy->getCallsCount('pushHook'));
 
         $this->assertEquals(
-            $this->hookRegisterSpy->getCalls('pushHook')[0]['arguments'][0],
+            $this->streamContainerSpy->getCalls('pushHook')[0]['arguments'][0],
             HookSpy::class
         );
     }
