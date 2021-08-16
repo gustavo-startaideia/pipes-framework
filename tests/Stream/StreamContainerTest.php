@@ -2,11 +2,10 @@
 
 namespace Pipes\Tests\Stream;
 
-use Pipes\Stream\Action;
+use Pipes\Tests\Spies\Stream\InvalidHookSpy;
+use Pipes\Tests\Spies\Stream\ActionSpy;
 use Pipes\Tests\Spies\Stream\HookSpy;
 use Pipes\Stream\StreamContainer;
-use Pipes\Tests\Spies\Stream\ActionSpy;
-use Pipes\Tests\Spies\Stream\InvalidHookSpy;
 
 class StreamContainerTest extends \Pipes\Tests\TestCase
 {
