@@ -2,7 +2,7 @@
 
 namespace Pipes\Stream;
 
-use Pipes\Stream\Contracts\HookRegister;
+use Pipes\Stream\Contracts\HookRegisterContract;
 
 class Dispatcher
 {
@@ -12,7 +12,7 @@ class Dispatcher
      * @param \Pipes\Stream\Contracts\HookRegister $hookRegister
      */
     public function __construct(
-        public HookRegister $hookRegister
+        public HookRegisterContract $hookRegister
     ) {
     }
 

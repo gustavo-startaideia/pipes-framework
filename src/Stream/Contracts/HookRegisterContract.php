@@ -2,7 +2,7 @@
 
 namespace Pipes\Stream\Contracts;
 
-interface HookRegister
+interface HookRegisterContract
 {
     /**
      * Register a hook into the stream
