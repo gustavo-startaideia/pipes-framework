@@ -30,7 +30,7 @@ class StreamContainer implements StreamContainerContract
     {
         // register before actions
         collect($hook::$before)->each(function ($action) use ($hook) {
-            if (optional($this->beforeHooks)[$action]) {
+            if (optional($this->beforeHooks)[$action::getName()]) {
                 $this->beforeHooks[$action] = [...$this->beforeHooks[$action], $hook];
                 return;
             }
@@ -39,7 +39,7 @@ class StreamContainer implements StreamContainerContract
 
         // register after action
         collect($hook::$after)->each(function ($action) use ($hook) {
-            if (optional($this->afterHooks)[$action]) {
+            if (optional($this->afterHooks)[$action::getName()]) {
                 $this->afterHooks[$action] = [...$this->afterHooks[$action], $hook];
                 return;
             }
@@ -55,7 +55,7 @@ class StreamContainer implements StreamContainerContract
      */
     public function getBeforeHooks(Action $action): array
     {
-        return optional($this->beforeHooks)[$action->getName()] ?? [];
+        return optional($this->beforeHooks)[$action::getName()] ?? [];
     }
 
     /**
@@ -66,7 +66,7 @@ class StreamContainer implements StreamContainerContract
      */
     public function getAfterHooks(Action $action): array
     {
-        return optional($this->afterHooks)[$action->getName()] ?? [];
+        return optional($this->afterHooks)[$action::getName()] ?? [];
     }
 
     /**
@@ -78,8 +78,8 @@ class StreamContainer implements StreamContainerContract
     public function getHooks(Action $action): array
     {
         return [
-            ...optional($this->beforeHooks)[$action->getName()] ?? [],
-            ...optional($this->afterHooks)[$action->getName()] ?? []
+            ...optional($this->beforeHooks)[$action::getName()] ?? [],
+            ...optional($this->afterHooks)[$action::getName()] ?? []
         ];
     }
 
@@ -97,8 +97,8 @@ class StreamContainer implements StreamContainerContract
                 $this->afterHooks
             )
         )
-            ->map(fn ($element) => collect($element)->map(fn ($hook) => $hook->getName()))
-            ->filter(fn ($element) => $element->contains($hook->getName()))
+            ->map(fn ($element) => collect($element)->map(fn ($hook) => $hook::getName()))
+            ->filter(fn ($element) => $element->contains($hook::getName()))
             ->count() > 0;
     }
 }

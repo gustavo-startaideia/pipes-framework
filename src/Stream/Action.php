@@ -34,9 +34,9 @@ abstract class Action
      * 
      * @return string
      */
-    public function getName(): string
+    public static function getName(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     /**

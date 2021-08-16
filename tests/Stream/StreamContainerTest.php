@@ -36,8 +36,8 @@ class StreamContainerTest extends \Pipes\Tests\TestCase
     /** @test */
     public function it_should_register_a_hook()
     {
-        HookSpy::$before[] = '<valid_action_name>';
-        HookSpy::$after[]  = '<valid_action_name>';
+        HookSpy::$before[] = ActionSpy::class;
+        HookSpy::$after[]  = ActionSpy::class;
 
         $hookSpy = new HookSpy;
 
