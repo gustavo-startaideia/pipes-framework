@@ -11,4 +11,14 @@ abstract class Action
      * @return mixed
      */
     abstract public function handle(mixed $payload): mixed;
+
+    /**
+     * Dispatch this action to all available hooks
+     * 
+     * @param mixed $payload
+     * @return mixed
+     */
+    static function dispatch(mixed $payload): mixed
+    {
+    }
 }

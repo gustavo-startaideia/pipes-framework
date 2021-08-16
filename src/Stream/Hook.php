@@ -7,16 +7,22 @@ abstract class Hook
     /**
      * Indicates actions that run before this hook
      * 
-     * @var array
+     * @return array
      */
-    protected $before = [];
+    public function before(): array
+    {
+        return [];
+    }
 
     /**
      * Indicates actions that run after this hook
      * 
-     * @var array
+     * @return array
      */
-    protected $after = [];
+    public function after(): array
+    {
+        return [];
+    }
 
     /**
      * Handle hook dispatch
