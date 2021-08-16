@@ -16,26 +16,26 @@ interface StreamContainerContract
     /**
      * Get the before hooks for the given action
      * 
-     * @param Action $action
+     * @param string $action
      * @return array
      */
-    public function getBeforeHooks(Action $action): array;
+    public function getBeforeHooks(string $action): array;
 
     /**
      * Get the after hooks for the given action
      * 
-     * @param Action $action
+     * @param string $action
      * @return array
      */
-    public function getAfterHooks(Action $action): array;
+    public function getAfterHooks(string $action): array;
 
     /**
      * Get all hooks that listen to an action
      * 
-     * @param Action $action
+     * @param string $action
      * @return array
      */
-    public function getHooks(Action $action): array;
+    public function getHooks(string $action): array;
 
     /**
      * Check if a hook is already loaded

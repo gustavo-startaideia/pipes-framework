@@ -3,9 +3,9 @@
 namespace Pipes\Tests\Spies\Stream;
 
 use Pipes\Tests\Spies\Spy;
-use Pipes\Stream\Hook;
+use Pipes\Stream\Action;
 
-class HookSpy extends Hook
+class ActionSpy extends Action
 {
     use Spy;
 

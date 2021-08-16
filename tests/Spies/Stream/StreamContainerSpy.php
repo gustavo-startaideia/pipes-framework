@@ -4,7 +4,6 @@ namespace Pipes\Tests\Spies\Stream;
 
 use Pipes\Stream\Contracts\StreamContainerContract;
 use Pipes\Tests\Spies\Spy;
-use Pipes\Stream\Action;
 
 class StreamContainerSpy implements StreamContainerContract
 {
@@ -24,10 +23,10 @@ class StreamContainerSpy implements StreamContainerContract
     /**
      * getBeforeHooks method mock
      * 
-     * @param Action $action
+     * @param string $action
      * @return void
      */
-    public function getBeforeHooks(Action $action): array
+    public function getBeforeHooks(string $action): array
     {
         $this->addCall('pushHook', [$action]);
 
@@ -37,10 +36,10 @@ class StreamContainerSpy implements StreamContainerContract
     /**
      * getAfterHooks method mock
      * 
-     * @param Action $action
+     * @param string $action
      * @return void
      */
-    public function getAfterHooks(Action $action): array
+    public function getAfterHooks(string $action): array
     {
         $this->addCall('getAfterHooks', [$action]);
 
@@ -50,10 +49,10 @@ class StreamContainerSpy implements StreamContainerContract
     /**
      * getHooks method mock
      * 
-     * @param Action $action
+     * @param string $action
      * @return void
      */
-    public function getHooks(Action $action): array
+    public function getHooks(string $action): array
     {
         $this->addCall('getBeforeHooks', [$action]);
 
