@@ -10,6 +10,24 @@ class HookSpy extends Hook
     use Spy;
 
     /**
+     * Before action register
+     * 
+     * @var array
+     */
+    static $before = [
+        '<valid_action_name>'
+    ];
+
+    /**
+     * After action register
+     * 
+     * @var array
+     */
+    static $after = [
+        '<valid_action_name>'
+    ];
+
+    /**
      * Handle mock
      * 
      * @param mixed $payload

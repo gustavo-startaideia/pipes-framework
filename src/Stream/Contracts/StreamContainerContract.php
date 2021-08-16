@@ -36,4 +36,11 @@ interface StreamContainerContract
      * @return array
      */
     public function getHooks(Action $action): array;
+
+    /**
+     * Check if a hook is already loaded
+     * 
+     * @return bool
+     */
+    public function hasHook(string $hook): bool;
 }

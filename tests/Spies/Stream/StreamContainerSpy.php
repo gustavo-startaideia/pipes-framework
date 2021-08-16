@@ -59,4 +59,16 @@ class StreamContainerSpy implements StreamContainerContract
 
         return [];
     }
+
+    /**
+     * Check if a given hook is registered
+     * 
+     * @param string $hook
+     * @return bool
+     */
+    public function hasHook(string $hook): bool
+    {
+        $this->addCall('isHookLoaded', [$hook]);
+        return true;
+    }
 }
