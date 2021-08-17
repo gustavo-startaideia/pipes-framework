@@ -8,6 +8,7 @@ use Pipes\Tests\Spies\Stream\ActionSpy;
 use Pipes\Tests\Spies\Stream\HookSpy;
 use Pipes\Stream\StreamConnector;
 use Pipes\Stream\Action;
+use Pipes\Tests\Spies\Stream\HookResolverSpy;
 
 class StreamConnectorTest extends \Pipes\Tests\TestCase
 {
@@ -76,5 +77,32 @@ class StreamConnectorTest extends \Pipes\Tests\TestCase
 
         $this->assertEquals(1, $this->streamContainerSpy->getCallsCount('pushHook'));
         $this->assertEquals($hookSpy, $this->streamContainerSpy->getCalls('pushHook')[0]['arguments'][0]);
+    }
+
+    /** @test */
+    public function it_should_load_hooks_from_resolvers(): void
+    {
+        $hookResolverSpy = new HookResolverSpy;
+        $hookSpy = new HookSpy;
+
+        $hookResolverSpy->shouldReturn('resolve', [
+            $hookSpy
+        ]);
+
+        config(['pipes.hooks.resolvers' => [
+            $hookResolverSpy
+        ]]);
+
+        $this->sut->loadHooks();
+
+        $this->assertEquals(
+            1,
+            $this->streamContainerSpy->getCallsCount('pushHook')
+        );
+
+        $this->assertEquals(
+            $hookSpy,
+            $this->streamContainerSpy->getCalls('pushHook')[0]['arguments'][0]
+        );
     }
 }
