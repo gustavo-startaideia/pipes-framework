@@ -2,6 +2,8 @@
 
 namespace Pipes\Stream;
 
+use Pipes\Facades\Stream;
+
 class Action
 {
     /**
@@ -53,5 +55,17 @@ class Action
         $this->payload = $payload;
 
         return $this;
+    }
+
+    /**
+     * Dispatch this action into the stream
+     * 
+     * @param mixed $payload
+     * @return mixed
+     */
+    static function dispatch(mixed $payload): mixed
+    {
+        $action = new static;
+        return Stream::dispatch($action->setPayload($payload));
     }
 }

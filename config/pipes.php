@@ -41,7 +41,7 @@ return [
          * 
          */
         'resolvers' => [
-            \Pipes\Stream\HookResolvers\LocalResolver::class,
+            \Pipes\Stream\HookResolvers\FilesystemResolver::class,
             \Pipes\Stream\HookResolvers\ConfigResolver::class,
         ]
     ]

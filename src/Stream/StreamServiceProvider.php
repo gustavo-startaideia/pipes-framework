@@ -6,6 +6,7 @@ use Pipes\Stream\Contracts\StreamConnectorContract;
 use Pipes\Stream\Contracts\StreamContainerContract;
 use Pipes\Stream\Contracts\StreamDispatchContract;
 use Illuminate\Support\ServiceProvider;
+use Pipes\Facades\Stream;
 
 class StreamServiceProvider extends ServiceProvider
 {
@@ -41,5 +42,6 @@ class StreamServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Stream::loadHooks();
     }
 }
