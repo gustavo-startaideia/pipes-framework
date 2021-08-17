@@ -2,7 +2,7 @@
 
 namespace Pipes\Stream;
 
-abstract class Action
+class Action
 {
     /**
      * Action payload
@@ -17,7 +17,10 @@ abstract class Action
      * @param mixed $payload
      * @return mixed
      */
-    abstract public function handle(mixed $payload): mixed;
+    public function handle(mixed $payload): mixed
+    {
+        return $payload;
+    }
 
     /**
      * Gets action payload

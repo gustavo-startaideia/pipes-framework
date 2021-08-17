@@ -65,7 +65,7 @@ trait Spy
     {
         $this->calls[] = ['method' => $name, 'arguments' => $arguments];
 
-        $expectedReturn = optional($this->returns)[$name] ?? null;
+        $expectedReturn = isset($this->returns[$name]) ? $this->returns[$name] : null;
 
         return $expectedReturn;
     }

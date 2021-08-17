@@ -31,14 +31,14 @@ class StreamDispatcher implements StreamDispatcherContract
 
         $payload = app(Pipeline::class)
             ->send($action->getPayload())
-            ->through($beforeHooks)
+            ->through(collect($beforeHooks)->filter(fn ($hook) => $hook->shouldExecute())->toArray())
             ->thenReturn();
 
         $payload = $action->handle($payload);
 
         $payload = app(Pipeline::class)
             ->send($payload)
-            ->through($afterHooks)
+            ->through(collect($afterHooks)->filter(fn ($hook) => $hook->shouldExecute())->toArray())
             ->thenReturn();
 
         return $payload;

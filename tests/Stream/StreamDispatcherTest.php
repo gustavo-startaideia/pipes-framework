@@ -66,7 +66,7 @@ class StreamDispatcherTest extends \Pipes\Tests\TestCase
     }
 
     /** @test */
-    public function it_should_call_push_hook_on_hook_register(): void
+    public function it_should_dispatch_an_action(): void
     {
         $actionSpy = new ActionSpy;
 
@@ -94,5 +94,40 @@ class StreamDispatcherTest extends \Pipes\Tests\TestCase
 
         $this->assertEquals(1, $this->hookSpyBefore->getCallsCount('handle'));
         $this->assertEquals(1, $this->hookSpyAfter->getCallsCount('handle'));
+    }
+
+    /** @test */
+    public function it_should_not_execute_hooks_if_should_execute_returns_false(): void
+    {
+        $actionSpy = new ActionSpy;
+
+        $beforeHookSpy = $this->hookSpyBefore->shouldReturn('shouldExecute', false)->shouldReturn('handle', '<valid_payload_before_hook>');
+        $hookSpyAfter = $this->hookSpyAfter->shouldReturn('shouldExecute', false)->shouldReturn('handle', '<valid_payload_after_hook>');
+
+        $this->streamContainerSpy->shouldReturn('getBeforeHooks', [
+            $beforeHookSpy
+        ]);
+
+        $this->streamContainerSpy->shouldReturn('getAfterHooks', [
+            $hookSpyAfter
+        ]);
+
+        $resultDispatch = $this->sut->dispatch($actionSpy->setPayload('<valid_payload>'));
+
+        $this->assertEquals('<valid_payload>', $resultDispatch);
+
+        $beforeHooksCalls = $this->streamContainerSpy->getCallsCount('getBeforeHooks');
+        $afterHooksCalls = $this->streamContainerSpy->getCallsCount('getAfterHooks');
+
+        $this->assertGreaterThanOrEqual(1, $beforeHooksCalls);
+        $this->assertGreaterThanOrEqual(1, $afterHooksCalls);
+
+        $this->assertEquals(1, $actionSpy->getCallsCount('handle'));
+
+        $callsArgs = $actionSpy->getCalls('handle')[0]['arguments'][0];
+        $this->assertEquals('<valid_payload>', $callsArgs);
+
+        $this->assertEquals(0, $this->hookSpyBefore->getCallsCount('handle'));
+        $this->assertEquals(0, $this->hookSpyAfter->getCallsCount('handle'));
     }
 }

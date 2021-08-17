@@ -2,7 +2,7 @@
 
 namespace Pipes\Stream;
 
-abstract class Hook
+class Hook
 {
     /**
      * Indicates actions that run before this hook
@@ -44,5 +44,8 @@ abstract class Hook
      * @param mixed $payload
      * @return mixed
      */
-    abstract public function handle(mixed $payload): mixed;
+    public function handle(mixed $payload): mixed
+    {
+        return $payload;
+    }
 }

@@ -12,6 +12,17 @@ class HookSpy extends Hook
     /**
      * Handle mock
      * 
+     * @return bool
+     */
+    public function shouldExecute(): bool
+    {
+        $returnValue = $this->addCall('shouldExecute', []);
+        return !is_null($returnValue) ? $returnValue : parent::shouldExecute();
+    }
+
+    /**
+     * Handle mock
+     * 
      * @param mixed $payload
      * @return mixed
      */
