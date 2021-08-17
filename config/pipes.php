@@ -32,6 +32,14 @@ return [
          */
         'hooks' => [],
 
+        /**
+         * ----------------------------------------------------
+         * Resolvers
+         * ----------------------------------------------------
+         * 
+         * Hooks resolvers. They are used to load hooks.
+         * 
+         */
         'resolvers' => [
             \Pipes\Stream\HookResolvers\LocalResolver::class,
             \Pipes\Stream\HookResolvers\ConfigResolver::class,
