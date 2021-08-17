@@ -23,6 +23,10 @@ class PipesServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/pipes.php',
+            'pipes'
+        );
         collect($this->providers)->each(fn ($provider) => $this->app->register($provider));
     }
 
