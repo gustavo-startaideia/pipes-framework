@@ -4,7 +4,7 @@ namespace Pipes\Stream\HookResolvers;
 
 use Pipes\Stream\Contracts\HookResolverContract;
 
-class ConfigFileResolver implements HookResolverContract
+class ConfigResolver implements HookResolverContract
 {
     /**
      * Resolve hooks from the config file

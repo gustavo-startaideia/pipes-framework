@@ -2,11 +2,11 @@
 
 namespace Pipes\Stream\HookResolvers;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Pipes\Stream\Contracts\HookResolverContract;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
-class LocalResolver implements HookResolverContract
+class FilesystemResolver implements HookResolverContract
 {
 
     /**

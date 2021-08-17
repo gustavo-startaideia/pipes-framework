@@ -2,16 +2,16 @@
 
 namespace Pipes\Tests\Stream\HookResolvers;
 
-use Pipes\Stream\HookResolvers\LocalResolver;
+use Pipes\Stream\HookResolvers\FilesystemResolver;
 use Pipes\Tests\Spies\FilesystemSpy;
 use SplFileInfo;
 
-class LocalResolverTest extends \Pipes\Tests\TestCase
+class FilesystemResolverTest extends \Pipes\Tests\TestCase
 {
     /**
      * System Under Test
      * 
-     * @var LocalResolver
+     * @var FilesystemResolver
      */
     protected $sut;
 
@@ -37,7 +37,7 @@ class LocalResolverTest extends \Pipes\Tests\TestCase
 
         $this->filesystemSpy = new FilesystemSpy;
 
-        $this->sut = new LocalResolver(
+        $this->sut = new FilesystemResolver(
             filesystem: $this->filesystemSpy
         );
     }
