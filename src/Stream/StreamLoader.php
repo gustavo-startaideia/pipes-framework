@@ -2,7 +2,7 @@
 
 namespace Pipes\Stream;
 
-use Pipes\Stream\Contracts\StreamContainerContract;
+use Pipes\Stream\Contracts\StreamConnectorContract;
 use Pipes\Stream\Contracts\StreamLoaderContract;
 
 class StreamLoader implements StreamLoaderContract
@@ -13,7 +13,7 @@ class StreamLoader implements StreamLoaderContract
      * @param StreamContainerContract $streamContainer
      */
     public function __construct(
-        public StreamContainerContract $streamContainer
+        public StreamConnectorContract $streamConnector
     ) {
     }
 
@@ -31,7 +31,7 @@ class StreamLoader implements StreamLoaderContract
                 fn ($resolver) => is_string($resolver) ? app($resolver)->resolve() : $resolver->resolve()
             )
             ->each(
-                fn ($hook) => $this->streamContainer->pushHook($hook)
+                fn ($hook) => $this->streamConnector->pushHook($hook)
             );
 
         return true;

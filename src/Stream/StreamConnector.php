@@ -2,10 +2,11 @@
 
 namespace Pipes\Stream;
 
-use Pipes\Stream\Contracts\StreamContainerContract;
 use Pipes\Stream\Contracts\StreamDispatcherContract;
+use Pipes\Stream\Contracts\StreamContainerContract;
+use Pipes\Stream\Contracts\StreamConnectorContract;
 
-class StreamConnector
+class StreamConnector implements StreamConnectorContract
 {
     /**
      * Constructor method

@@ -2,10 +2,10 @@
 
 namespace Pipes\Tests\Stream;
 
-use Pipes\Tests\Spies\Stream\StreamContainerSpy;
 use Pipes\Tests\Spies\Stream\HookResolverSpy;
-use Pipes\Stream\StreamLoader;
+use Pipes\Tests\Spies\Stream\StreamConnectorSpy;
 use Pipes\Tests\Spies\Stream\HookSpy;
+use Pipes\Stream\StreamLoader;
 
 class StreamLoaderTest extends \Pipes\Tests\TestCase
 {
@@ -19,9 +19,9 @@ class StreamLoaderTest extends \Pipes\Tests\TestCase
     /**
      * Hook Register Spy
      *
-     * @var StreamContainerSpy
+     * @var StreamConnectorSpy
      */
-    protected mixed $streamContainerSpy;
+    protected mixed $streamConnectorSpy;
 
     /**
      * Create sut and mocks
@@ -32,10 +32,10 @@ class StreamLoaderTest extends \Pipes\Tests\TestCase
     {
         parent::setUp();
 
-        $this->streamContainerSpy = new StreamContainerSpy;
+        $this->streamConnectorSpy = new StreamConnectorSpy;
 
         $this->sut = new StreamLoader(
-            streamContainer: $this->streamContainerSpy
+            streamConnector: $this->streamConnectorSpy
         );
     }
 
@@ -57,12 +57,12 @@ class StreamLoaderTest extends \Pipes\Tests\TestCase
 
         $this->assertEquals(
             1,
-            $this->streamContainerSpy->getCallsCount('pushHook')
+            $this->streamConnectorSpy->getCallsCount('pushHook')
         );
 
         $this->assertEquals(
             $hookSpy,
-            $this->streamContainerSpy->getCalls('pushHook')[0]['arguments'][0]
+            $this->streamConnectorSpy->getCalls('pushHook')[0]['arguments'][0]
         );
     }
 }
